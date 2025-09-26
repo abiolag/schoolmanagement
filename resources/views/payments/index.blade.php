@@ -30,7 +30,7 @@
                         <td>{{ $payment->receipt_number }}</td>
                         <td>{{ $payment->student->first_name }} {{ $payment->student->last_name }}</td>
                         <td>₦{{ number_format($payment->amount, 2) }}</td>
-                        <td>{{ \Carbon\Carbon::parse($payment->payment_date)->format('M d, Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($payment->payment_date)->format('d/m/Y') }}</td>
                         <td>{{ $payment->payment_type }}</td>
                         <td>{{ $payment->payment_method }}</td>
                         <td>

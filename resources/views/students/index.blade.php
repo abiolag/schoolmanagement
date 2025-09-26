@@ -36,7 +36,7 @@
                         </td>
                         <td>{{ $student->class_level }}</td>
                         <td>{{ $student->parent_phone }}</td>
-                        <td>{{ \Carbon\Carbon::parse($student->enrollment_date)->format('M d, Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($student->enrollment_date)->format('d/m/Y') }}</td>
                         <td>₦{{ number_format($student->total_paid, 2) }}</td>
                         <td>
                             @if($student->balance > 0)
@@ -48,19 +48,21 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('students.show', $student->id) }}" class="btn btn-sm btn-info" title="View Profile">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <a href="{{ route('students.edit', $student->id) }}" class="btn btn-sm btn-warning" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form action="{{ route('students.destroy', $student->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" title="Delete" onclick="return confirm('Are you sure you want to delete this student?')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+                            <div class="btn-group" role="group">
+                                <a href="{{ route('students.show', $student->id) }}" class="btn btn-sm btn-info" title="View Profile">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ route('students.edit', $student->id) }}" class="btn btn-sm btn-warning" title="Edit Student">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form action="{{ route('students.destroy', $student->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Delete" onclick="return confirm('Are you sure you want to delete this student?')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     @endforeach

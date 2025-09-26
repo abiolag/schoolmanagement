@@ -30,8 +30,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-4 fw-bold">Payment Date:</div>
-                    <div class="col-sm-8">{{ \Carbon\Carbon::parse($payment->payment_date)->format('F d, Y') }}</div>
-                </div>
+                 <div class="col-sm-8">{{ \Carbon\Carbon::parse($payment->payment_date)->format('d/m/Y') }}</div>                </div>
                 <div class="row mb-3">
                     <div class="col-sm-4 fw-bold">Payment Type:</div>
                     <div class="col-sm-8">

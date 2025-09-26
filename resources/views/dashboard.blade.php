@@ -77,8 +77,8 @@
                             <tr>
                                 <td>{{ $payment->student->first_name }} {{ $payment->student->last_name }}</td>
                                 <td>₦{{ number_format($payment->amount, 2) }}</td>
-                                <td>{{ $payment->payment_date->format('M d, Y') }}</td>
-                            </tr>
+                                    <!-- Change US format to UK format -->
+                                 {{ \Carbon\Carbon::parse($payment->payment_date)->format('d/m/Y') }}                            </tr>
                             @endforeach
                         </tbody>
                     </table>

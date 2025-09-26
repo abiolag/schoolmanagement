@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+<!-- In the header section, update the buttons -->
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2>Student Profile: {{ $student->first_name }} {{ $student->last_name }}</h2>
     <div>
         <a href="{{ route('students.edit', $student->id) }}" class="btn btn-warning me-2">
-            <i class="fas fa-edit me-2"></i>Edit Student
+            <i class="fas fa-edit me-2"></i>Edit Student Info
         </a>
         <a href="{{ route('payments.create') }}?student_id={{ $student->id }}" class="btn btn-success me-2">
             <i class="fas fa-money-bill me-2"></i>Record Payment
@@ -29,11 +30,11 @@
             <div class="card-body">
                 <p><strong>Student ID:</strong> {{ $student->student_id }}</p>
                 <p><strong>Name:</strong> {{ $student->first_name }} {{ $student->last_name }}</p>
-                <p><strong>Date of Birth:</strong> {{ \Carbon\Carbon::parse($student->date_of_birth)->format('M d, Y') }}</p>
                 <p><strong>Age:</strong> {{ \Carbon\Carbon::parse($student->date_of_birth)->age }} years</p>
                 <p><strong>Gender:</strong> {{ $student->gender }}</p>
                 <p><strong>Class Level:</strong> {{ $student->class_level }}</p>
-                <p><strong>Enrollment Date:</strong> {{ \Carbon\Carbon::parse($student->enrollment_date)->format('M d, Y') }}</p>
+                <p><strong>Date of Birth:</strong> {{ \Carbon\Carbon::parse($student->date_of_birth)->format('d/m/Y') }}</p>
+                <p><strong>Enrollment Date:</strong> {{ \Carbon\Carbon::parse($student->enrollment_date)->format('d/m/Y') }}</p>
                 <p><strong>Enrollment Duration:</strong> {{ \Carbon\Carbon::parse($student->enrollment_date)->diffInMonths(now()) }} months</p>
             </div>
         </div>
