@@ -194,6 +194,108 @@
         @endif
     </div>
 </div>
+        <!-- Books Section -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-book me-2"></i>Book Orders & Deliveries</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-3 text-center">
+                        <div class="border rounded p-3 bg-light">
+                            <h4 class="text-primary mb-0">{{ $student->book_orders->count() }}</h4>
+                            <small>Total Books Ordered</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <div class="border rounded p-3 bg-light">
+                            <h4 class="text-success mb-0">{{ $student->delivered_books }}</h4>
+                            <small>Books Delivered</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <div class="border rounded p-3 bg-light">
+                            <h4 class="text-warning mb-0">{{ $student->pending_books }}</h4>
+                            <small>Pending Delivery</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <div class="border rounded p-3 bg-light">
+                            <h4 class="text-info mb-0">₦{{ number_format($student->total_book_cost, 2) }}</h4>
+                            <small>Total Book Costs</small>
+                        </div>
+                    </div>
+                </div>
+
+                @if($student->book_orders->count() > 0)
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Book</th>
+                                    <th>Type</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th>Total</th>
+                                    <th>Order Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($student->book_orders as $transaction)
+                                <tr>
+                                    <td>
+                                        <strong>{{ $transaction->book->title }}</strong><br>
+                                        <small class="text-muted">{{ $transaction->book->book_code }}</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info text-dark text-capitalize">
+                                            {{ str_replace('_', ' ', $transaction->book->book_type) }}
+                                        </span>
+                                    </td>
+                                    <td>{{ $transaction->quantity }}</td>
+                                    <td>₦{{ number_format($transaction->unit_price, 2) }}</td>
+                                    <td class="text-primary">₦{{ number_format($transaction->total_amount, 2) }}</td>
+                                    <td>{{ $transaction->transaction_date->format('M d, Y') }}</td>
+                                    <td>
+                                        @if($transaction->status == 'pending')
+                                            <span class="badge bg-warning">Pending Delivery</span>
+                                        @elseif($transaction->status == 'collected')
+                                            <span class="badge bg-success">Collected</span>
+                                        @else
+                                            <span class="badge bg-danger">Cancelled</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($transaction->status == 'pending')
+                                            <form action="{{ route('books.update-status', $transaction->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" name="status" value="collected">
+                                                <button type="submit" class="btn btn-sm btn-success" 
+                                                        onclick="return confirm('Mark this book as collected?')">
+                                                    <i class="fas fa-check"></i> Mark Collected
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @else
+                    <div class="text-center py-4">
+                        <i class="fas fa-book fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">No book orders found for this student.</p>
+                        <a href="{{ route('books.issue') }}?student_id={{ $student->id }}" class="btn btn-primary">
+                            <i class="fas fa-book me-2"></i>Issue Books to Student
+                        </a>
+                    </div>
+                @endif
+            </div>
+        </div>
 
 <!-- Quick Actions -->
 <div class="card">

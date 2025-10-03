@@ -17,5 +17,23 @@ Route::get('/books/transactions', [BookController::class, 'transactions'])->name
 Route::post('/books/transactions/{transaction}/status', [BookController::class, 'updateTransactionStatus'])->name('books.transactions.status');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+// ... existing routes ...
+
+// Admin Routes
+/*Route::prefix('admin')->name('admin.')->group(function () {
+    // Books Management
+    Route::get('/categories', [BookAdminController::class, 'categories'])->name('categories');
+    Route::post('/categories', [BookAdminController::class, 'storeCategory'])->name('categories.store');
+    Route::get('/books', [BookAdminController::class, 'books'])->name('books');
+    Route::post('/books', [BookAdminController::class, 'createBook'])->name('books.store');
+    Route::patch('/books/{book}/price', [BookAdminController::class, 'updateBookPrice'])->name('books.update-price');
+    Route::get('/inventory', [BookAdminController::class, 'inventory'])->name('inventory');
+    Route::post('/inventory/update', [BookAdminController::class, 'updateInventory'])->name('inventory.update');
+}); */
+
+// Book Transactions
+Route::patch('/book-transactions/{transaction}/status', [BookController::class, 'updateStatus'])->name('books.update-status');
+
 Auth::routes();
 

@@ -117,7 +117,9 @@ class BookController extends Controller
         return view('books.transactions', compact('transactions'));
     }
 
-    public function updateTransactionStatus(Request $request, BookTransaction $transaction)
+
+
+        public function updateStatus(Request $request, BookTransaction $transaction)
     {
         $request->validate([
             'status' => 'required|in:pending,collected,cancelled'
@@ -125,6 +127,6 @@ class BookController extends Controller
 
         $transaction->update(['status' => $request->status]);
 
-        return back()->with('success', 'Transaction status updated successfully!');
+        return back()->with('success', 'Book status updated successfully!');
     }
 }

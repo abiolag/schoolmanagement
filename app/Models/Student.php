@@ -53,4 +53,18 @@ class Student extends Model
     {
         return $this->bookTransactions()->where('status', 'pending')->count();
     }
-}
+
+
+
+        public function getBookOrdersAttribute()
+    {
+        return $this->bookTransactions()->with('book')->get();
+    }
+
+
+
+    public function getDeliveredBooksAttribute()
+    {
+        return $this->bookTransactions()->where('status', 'collected')->count();
+    }
+    }
